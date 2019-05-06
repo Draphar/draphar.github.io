@@ -1,0 +1,161 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `exec` macro in crate `test_exec`."><meta name="keywords" content="rust, rustlang, rust-lang, exec"><title>test_exec::exec - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="shortcut icon" href="../favicon.ico"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc macro"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../test_exec/index.html'><img src='../rust-logo.png' alt='logo' width='100'></a><div class="sidebar-elems"><p class='location'><a href='index.html'>test_exec</a></p><script>window.sidebarCurrent = {name: 'exec', ty: 'macro', relpath: ''};</script><script defer src="sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/test_exec/lib.rs.html#271-422' title='goto source code'>[src]</a></span><span class='in-band'>Macro <a href='index.html'>test_exec</a>::<wbr><a class="macro" href=''>exec</a></span></h1><div class="docblock type-decl hidden-by-usual-hider"><div class="example-wrap"><pre class="rust macro">
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">exec</span> {
+    (
+        <span class="comment">// Input Configuration</span>
+        <span class="macro-nonterminal">$</span><span class="macro-nonterminal">program</span>:<span class="ident">expr</span> <span class="comment">// the program name, without a key and required</span>
+        $(, <span class="ident">args</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">args</span>:<span class="ident">expr</span>)<span class="question-mark">?</span> <span class="comment">// the arguments to pass to the program</span>
+        $(, <span class="ident">cwd</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">cwd</span>:<span class="ident">expr</span>)<span class="question-mark">?</span> <span class="comment">// the desired current working directory</span>
+        $(, <span class="ident">clear_env</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">clear_env</span>:<span class="ident">expr</span>)<span class="question-mark">?</span> <span class="comment">// a boolean setting whether the environment should be cleared</span>
+        $(, <span class="ident">env</span>: { $( <span class="macro-nonterminal">$</span><span class="macro-nonterminal">key</span>:<span class="ident">ident</span> : <span class="macro-nonterminal">$</span><span class="macro-nonterminal">value</span>:<span class="ident">expr</span> ),<span class="op">*</span> } )<span class="question-mark">?</span> <span class="comment">// the environment variables as pseudo-object</span>
+        $(, <span class="ident">modify_path</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">modify_path</span>:<span class="ident">expr</span>)<span class="question-mark">?</span> <span class="comment">// enable the auto-modification of the PATH to include bin targets</span>
+        $(, <span class="ident">stdin</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">stdin</span>:<span class="ident">expr</span>)<span class="question-mark">?</span> <span class="comment">// what to write to the program&#39;s stdin</span>
+        $(, <span class="ident">timeout</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">timeout</span>:<span class="ident">expr</span>)<span class="question-mark">?</span> <span class="comment">// maximum allowed running time of the program</span>
+        $(, <span class="ident">log</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">log</span>:<span class="ident">expr</span>)<span class="question-mark">?</span> <span class="comment">// log the output</span>
+
+        <span class="comment">// Assertions</span>
+        $(, <span class="ident">code</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">code</span>:<span class="ident">expr</span>)<span class="question-mark">?</span> <span class="comment">// the expected exit code</span>
+        $(, <span class="ident">stdout</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">stdout</span>:<span class="ident">expr</span>)<span class="question-mark">?</span> <span class="comment">// the expected stdout</span>
+        $(, <span class="ident">stderr</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">stderr</span>:<span class="ident">expr</span>)<span class="question-mark">?</span> <span class="comment">// the expected stderr</span>
+        $(, <span class="ident">signal</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">signal</span>:<span class="ident">expr</span>)<span class="question-mark">?</span> <span class="comment">// expected signal ID of the signal that terminated the program</span>
+    ) <span class="op">=&gt;</span> { ... };
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">program</span>:<span class="ident">expr</span>,) <span class="op">=&gt;</span> { ... };
+}</pre></div>
+</div><div class='docblock'><p>Comfortably execute a command and its output.</p>
+<p>This macro supports a variety of input.</p>
+<h1 id="input-configuration" class="section-header"><a href="#input-configuration">Input configuration</a></h1><h2 id="args-impl-intoiteritem--impl-asrefosstr" class="section-header"><a href="#args-impl-intoiteritem--impl-asrefosstr"><code>args</code> (<code>impl IntoIter&lt;Item = impl AsRef&lt;OsStr&gt;&gt;</code>)</a></h2>
+<p>Configure the arguments to pass to the executable.
+Array literals and <code>vec![]</code> declarations are possible.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="macro">exec</span><span class="macro">!</span>{
+    <span class="string">&quot;echo&quot;</span>,
+    <span class="ident">args</span>: [<span class="string">&quot;Hello world!&quot;</span>]
+};</pre></div>
+<h2 id="cwd-impl-asrefosstr" class="section-header"><a href="#cwd-impl-asrefosstr"><code>cwd</code> (<code>impl AsRef&lt;OsStr&gt;</code>)</a></h2>
+<p>Set the current working directory of the program.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">unix</span>)]</span>
+<span class="macro">exec</span><span class="macro">!</span>{
+    <span class="string">&quot;pwd&quot;</span>,
+    <span class="ident">cwd</span>: <span class="string">&quot;/tmp&quot;</span>
+};
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">windows</span>)]</span>
+<span class="macro">exec</span><span class="macro">!</span>{
+    <span class="string">&quot;cd&quot;</span>,
+    <span class="ident">cwd</span>: <span class="string">&quot;/system32&quot;</span>
+};</pre></div>
+<h2 id="env-and-clear_env-bool" class="section-header"><a href="#env-and-clear_env-bool"><code>env</code> and <code>clear_env</code> (<code>bool</code>)</a></h2>
+<p>Modify enviroment variables. <code>env</code> is a pseudo-object with
+raw identifiers as keys and expressions where <code>impl AsRef&lt;OsStr&gt;</code>
+as values, separated by commas.</p>
+<p>The <code>clear_env</code> option clears all environment variables <em>before</em>
+applying the <code>env</code> values. It is set to <code>false</code> by default.
+Remember to keep the path of the program in the path when using this key.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="macro">exec</span><span class="macro">!</span>{
+    <span class="string">&quot;printenv&quot;</span>,
+    <span class="ident">clear_env</span>: <span class="bool-val">true</span>,
+    <span class="ident">env</span>: {
+        <span class="ident">USER</span>: <span class="string">&quot;root&quot;</span>,
+        <span class="ident">COFFEE</span>: <span class="string">&quot;a lot&quot;</span>
+    }
+};</pre></div>
+<h2 id="modify_path-bool" class="section-header"><a href="#modify_path-bool"><code>modify_path</code> (<code>bool</code>)</a></h2>
+<p>By default, this is set to <code>true</code>, so the <code>target/debug</code> and <code>target/release</code> directorys are added to the PATH automatically.
+This modification also happens if a custom PATH is provided via the <code>env</code> key.</p>
+<p>If this behavior is undesired, this key can be set to <code>false</code>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="macro">exec</span><span class="macro">!</span>{
+    <span class="string">&quot;printenv&quot;</span>,
+    <span class="ident">args</span>: [<span class="string">&quot;PATH&quot;</span>],
+    <span class="ident">env</span>: {
+        <span class="ident">PATH</span>: <span class="string">&quot;/bin&quot;</span>
+    },
+    <span class="ident">modify_path</span>: <span class="bool-val">false</span>,
+
+    <span class="ident">stdout</span>: <span class="string">b&quot;/bin\n&quot;</span>
+};</pre></div>
+<h2 id="stdin-impl-asrefu8" class="section-header"><a href="#stdin-impl-asrefu8">stdin (<code>impl AsRef&lt;[u8]&gt;</code>)</a></h2>
+<p>Set data to write to the program's stdin.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="macro">exec</span><span class="macro">!</span>{
+    <span class="string">&quot;cat&quot;</span>,
+    <span class="ident">stdin</span>: <span class="string">b&quot;meow&quot;</span>
+};</pre></div>
+<h2 id="timeout-u64" class="section-header"><a href="#timeout-u64"><code>timeout</code> (<code>u64</code>)</a></h2>
+<p>Set the maximum running time for the program in <em>milliseconds</em>.
+When the timeout is exceeded, the process is killed using <code>SIGKILL</code> on Unix.
+The exit code is set to the signal number, which is <code>9</code> on Unix.
+This exit code is often unexpected, so use this carefully and only when
+the test if supposed to fail after a certain time.</p>
+<p>The maximum time depends on the operating system,
+being <code>i32::max_value()</code> on Unix and <code>u32::max_value()</code> on Windows
+(no warranty).</p>
+<p>If <code>timeout</code> is not given, the program will never timeout.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="macro">exec</span><span class="macro">!</span>{
+    <span class="string">&quot;sleep&quot;</span>,
+    <span class="ident">args</span>: [<span class="string">&quot;60&quot;</span>],
+    <span class="ident">timeout</span>: <span class="number">5000</span> <span class="comment">// milliseconds!</span>
+};</pre></div>
+<h2 id="log-bool" class="section-header"><a href="#log-bool"><code>log</code> (<code>bool</code>)</a></h2>
+<p>By setting this to <code>true</code>, the output of the program is logged after
+successful execution.</p>
+<p>Remember to pass <code>--nocapture</code> to tests using this option.</p>
+<h1 id="output-comparison" class="section-header"><a href="#output-comparison">Output comparison</a></h1>
+<p><code>exec</code> offers various ways to compare the output of the program directly through the macro.
+But, for dynamic output, the <a href="https://doc.rust-lang.org/stable/std/process/struct.Output.html"><code>Output</code></a> struct is returned.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">let</span> <span class="ident">output</span> <span class="op">=</span> <span class="macro">exec</span><span class="macro">!</span>(<span class="string">&quot;pwd&quot;</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">output</span>, <span class="string">b&quot;/&quot;</span>);</pre></div>
+<h2 id="code-i32" class="section-header"><a href="#code-i32"><code>code</code> (<code>i32</code>)</a></h2>
+<p>Make sure the exit code equals this code, panic if otherwise.
+This property is always compared, and the default is <code>0</code>.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="macro">exec</span><span class="macro">!</span>{
+    <span class="string">&quot;false&quot;</span>,
+    <span class="ident">code</span>: <span class="number">1</span>
+};
+<span class="macro">exec</span><span class="macro">!</span>{
+    <span class="string">&quot;true&quot;</span>,
+    <span class="ident">code</span>: <span class="number">0</span> <span class="comment">// unnecessary, but may be used for more explicitness</span>
+};</pre></div>
+<h2 id="stdout-and-stderr-impl-asrefu8" class="section-header"><a href="#stdout-and-stderr-impl-asrefu8"><code>stdout</code> and <code>stderr</code> (<code>impl AsRef&lt;[u8]&gt;</code>)</a></h2>
+<p>Make sure the program's <code>stdout</code> and <code>stderr</code> are exactly these bytes.
+This is not compared if omitted.
+Keep in my mind that many programs append a <code>\n</code> to their stdout.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="macro">exec</span><span class="macro">!</span>{
+    <span class="string">&quot;echo&quot;</span>,
+    <span class="ident">args</span>: [<span class="string">&quot;Hello&quot;</span>, <span class="string">&quot;world&quot;</span>],
+
+    <span class="ident">stdout</span>: <span class="string">b&quot;Hello world\n&quot;</span>,
+    <span class="ident">stderr</span>: []
+};</pre></div>
+<h2 id="signal-i32" class="section-header"><a href="#signal-i32"><code>signal</code> (<code>i32</code>)</a></h2>
+<blockquote>
+<p>! Supported Unix only, ignored on Windows</p>
+</blockquote>
+<p>Make sure the signal that terminated the program equals this signal.
+It is required that the program was definitely stopped by this signal,
+otherwise the assertion will fail.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="macro">exec</span><span class="macro">!</span>{
+    <span class="string">&quot;sleep&quot;</span>,
+    <span class="ident">args</span>: [<span class="string">&quot;60&quot;</span>],
+    <span class="ident">timeout</span>: <span class="number">1000</span>,
+
+    <span class="ident">code</span>: <span class="number">9</span>,
+    <span class="ident">signal</span>: <span class="number">9</span> <span class="comment">// SIGKILL = 9</span>
+};</pre></div>
+</div></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../";window.currentCrate = "test_exec";</script><script src="../aliases.js"></script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

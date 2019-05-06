@@ -1,0 +1,11 @@
+var ALIASES = {};
+ALIASES["example_bin"] = {};
+ALIASES["false"] = {};
+ALIASES["libc"] = {};
+ALIASES["print_stdin"] = {};
+ALIASES["printenv"] = {};
+ALIASES["pwd"] = {};
+ALIASES["sleep"] = {};
+ALIASES["test_exec"] = {};
+ALIASES["true"] = {};
+ALIASES["wait_timeout"] = {};
