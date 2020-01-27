@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fallout Shelter Relations</title>
+    <script src="sjcl.js"></script>
+    <script src="foshelter_relations.js"></script>
+    <script>
+        const reader = new FileReader;
+
+        document.addEventListener("DOMContentLoaded", () => {
+    		document.getElementById("vault").addEventListener("change", e => reader.readAsText(e.target.files[0]));
+
+    		reader.addEventListener("load", () => {
+        		try {
+					htmlRender(document.getElementById("output"), foshelterAscendants(decrypt(reader.result)));
+				} catch (e) {
+					alert(`An error occurred, your save file is probably corrupt (${e})`);
+				}
+        	});
+		});
+    </script>
+    <style>
+        table, tr, td, th {
+    		border: 1px solid black;
+    		border-collapse: collapse;
+    		padding: 4px;
+    	}
+    </style>
+</head>
+<body>
+    <h2>Fallout Shelter Family Relations Analysator</h2>
+    Your vault file: <input type="file" id="vault">
+    <br>
+    Note: <b>This tool functions read-only. It is not a cheat. All it does is merely display the data of your vault in a different way.</b> This tool is completely client-side. No vault data is exchanged with a server. In fact you can download this site and do it all locally and offline.
+    <table>
+        <tbody id="output">
+            <tr>
+                <th>Name</th>
+                <th>Sex</th>
+                <th>Level</th>
+                <th>Parents</th>
+                <th>Paternal Grandparents</th>
+                <th>Maternal Grandparents</th>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <small>
+    	Tool made by <a href="https://github.com/Draphar" target="_blank">Draphar</a>.
+    </small>
+</body>
+</html>
